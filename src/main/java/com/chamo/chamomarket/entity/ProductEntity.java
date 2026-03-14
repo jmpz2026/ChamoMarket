@@ -12,7 +12,7 @@ public class ProductEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "code", nullable = false, length = 25)
+    @Column(name = "code", nullable = false, length = 25, unique = true)
     private String code;
 
     @Column(name = "status", nullable = false)
