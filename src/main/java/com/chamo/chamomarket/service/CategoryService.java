@@ -25,6 +25,8 @@ public class CategoryService {
 
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(categoryEntity.getId());
+        categoryResponseDTO.setName(categoryEntity.getName());
+        categoryResponseDTO.setStatus(categoryEntity.getStatus());
 
     }
 }
