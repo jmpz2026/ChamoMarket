@@ -18,8 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Nodes.collect;
-
 @Validated
 @RequiredArgsConstructor
 @Service

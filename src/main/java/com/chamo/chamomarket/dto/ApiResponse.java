@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+// Estandar de Respuesta al Frontend
 public class ApiResponse<T> {
 
     private boolean status;
