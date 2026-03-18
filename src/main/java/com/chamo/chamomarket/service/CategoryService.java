@@ -5,6 +5,7 @@ import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
+import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.helper.ConvertHelper;
 import com.chamo.chamomarket.repository.CategoryRepository;
 import com.chamo.chamomarket.repository.MessageRepository;
@@ -28,7 +29,7 @@ public class CategoryService {
 
     public ApiResponse<CategoryResponseDTO> getCategoryById(Long id){
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
 
         List<ProductEntity> productsEntity = productRepository.findByInventoryId(id);
@@ -42,9 +43,9 @@ public class CategoryService {
         categoryResponseDTO.setProducts(productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
-        response.setStatus(true);
+        response.setSuccess(true);
         response.setData(categoryResponseDTO);
-        response.setMessage(MessageRepository.PRODUCT_FOUND);
+        response.setMessage(MessageRepository.CATEGORY_FOUND);
 
         return response;
     }
