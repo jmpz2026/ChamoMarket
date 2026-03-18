@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(ApiException.class)
     public ResponseEntity<ApiResponse<?>> handleApiException(ApiException exception) {
 
         ApiResponse<Object> response = new ApiResponse<>();
