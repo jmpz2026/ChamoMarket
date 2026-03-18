@@ -5,12 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductResponseDTO {
+public class ProductSimpleResponseDTO {
 
     private Long id;
     private String name;
     private String code;
     private Boolean status;
     private Integer quantity;
-    private Long categoryId;
 }

@@ -3,7 +3,8 @@ package com.chamo.chamomarket.service;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
-import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
+import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
 import com.chamo.chamomarket.exception.ResourceExistsException;
@@ -33,15 +34,11 @@ public class CategoryService {
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
 
-        List<ProductEntity> productsEntity = productRepository.findByInventoryId(id);
+        List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
 
-        List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
 
-        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-        categoryResponseDTO.setId(categoryEntity.getId());
-        categoryResponseDTO.setName(categoryEntity.getName());
-        categoryResponseDTO.setStatus(categoryEntity.getStatus());
-        categoryResponseDTO.setProducts(productsList);
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -52,25 +49,60 @@ public class CategoryService {
     }
 
     public ApiResponse<CategoryResponseDTO> createCategory(CategoryRequestDTO categoryRequestDTO){
-        if (categoryRepository.existsByName(categoryRequestDTO.getName())){
-            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
-        }
 
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(categoryRequestDTO.getName());
         categoryEntity.setStatus(true);
         categoryRepository.save(categoryEntity);
 
-        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-        categoryResponseDTO.setId(categoryEntity.getId());
-        categoryResponseDTO.setName(categoryEntity.getName());
-        categoryResponseDTO.setStatus(categoryEntity.getStatus());
-        categoryResponseDTO.setProducts(new ArrayList<>());
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, new ArrayList<>());
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(categoryResponseDTO);
         response.setMessage(MessageRepository.CATEGORY_CREATED);
+
+        return response;
+    }
+
+    public ApiResponse<CategoryResponseDTO> updateCategory(CategoryUpdateRequestDTO categoryUpdateRequestDTO){
+        CategoryEntity categoryEntity = categoryRepository.findById(categoryUpdateRequestDTO.getId()).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+        );
+
+        if (categoryUpdateRequestDTO.getStatus() == categoryEntity.getStatus()){
+            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_STATUS);
+        }
+
+        List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
+
+        categoryEntity.setName(categoryUpdateRequestDTO.getName());
+        categoryEntity.setStatus(categoryUpdateRequestDTO.getStatus());
+        categoryRepository.save(categoryEntity);
+
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
+
+        ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(categoryResponseDTO);
+        response.setMessage(MessageRepository.CATEGORY_UPDATED);
+
+        return response;
+    }
+
+    public ApiResponse<?> deleteCategory(Long id){
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+        );
+
+        categoryEntity.setStatus(false);
+        categoryRepository.save(categoryEntity);
+
+        ApiResponse<?> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(null);
+        response.setMessage(MessageRepository.CATEGORY_DISABLED);
 
         return response;
     }
