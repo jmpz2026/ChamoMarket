@@ -1,0 +1,23 @@
+package com.chamo.chamomarket.exception;
+
+import com.chamo.chamomarket.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ApiResponse<?>> handleApiException(ApiException exception) {
+
+        ApiResponse<Object> response = new ApiResponse<>();
+        response.setSuccess(false);
+        response.setMessage(exception.getMessage());
+        response.setData(null);
+
+        return ResponseEntity
+                .status(exception.getStatus())
+                .body(response);
+    }
+}
