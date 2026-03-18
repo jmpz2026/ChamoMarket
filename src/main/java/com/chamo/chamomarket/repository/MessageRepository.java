@@ -6,6 +6,7 @@ public class MessageRepository {
     public static String PRODUCT_NOT_FOUND = "NO SE ENCONTRO EL PRODUCTO";
     public static String PRODUCT_FOUND = "EL PRODUCTO SE ENCONTRO";
     public static String PRODUCT_CREATED = "EL PRODUCTO HA SIDO CREADO";
+    public static String PRODUCT_UPDATED = "EL PRODUCTO HA SIDO MODIFICADO";
 
     // Categorias
     public static String CATEGORY_NOT_FOUND = "NO SE ENCONTRO LA CATEGORIA";

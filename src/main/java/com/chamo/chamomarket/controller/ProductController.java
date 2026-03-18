@@ -5,6 +5,7 @@ import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductUpdateRequestDTO;
 import com.chamo.chamomarket.service.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -31,6 +32,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponseDTO>> createProduct(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         ApiResponse<ProductResponseDTO> response = productService.createProduct(productRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping
+    public ResponseEntity<ApiResponse<ProductResponseDTO>> updateProduct(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
+        ApiResponse<ProductResponseDTO> response = productService.updateProduct(productUpdateRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

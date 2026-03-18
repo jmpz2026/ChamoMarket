@@ -3,6 +3,7 @@ package com.chamo.chamomarket.service;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.product.ProductRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductUpdateRequestDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
@@ -60,6 +61,27 @@ public class ProductService {
         response.setData(productResponseDTO);
         response.setMessage(MessageRepository.PRODUCT_CREATED);
         response.setSuccess(true);
+
+        return response;
+    }
+
+    public ApiResponse<ProductResponseDTO> updateProduct(ProductUpdateRequestDTO productUpdateRequestDTO) {
+        ProductEntity productEntity = productRepository.findById(productUpdateRequestDTO.getId()).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+        );
+
+        productEntity.setName(productUpdateRequestDTO.getName());
+        productEntity.setStatus(productUpdateRequestDTO.getStatus());
+        productEntity.setQuantity(productUpdateRequestDTO.getQuantity());
+        productEntity.setStatus(productUpdateRequestDTO.getStatus());
+        productRepository.save(productEntity);
+
+        ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
+
+        ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
+        response.setData(productResponseDTO);
+        response.setSuccess(true);
+        response.setMessage(MessageRepository.PRODUCT_UPDATED);
 
         return response;
     }
