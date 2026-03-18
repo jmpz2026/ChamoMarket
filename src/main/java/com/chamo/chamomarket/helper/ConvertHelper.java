@@ -14,6 +14,7 @@ public class ConvertHelper {
         productResponseDTO.setId(productEntity.getId());
         productResponseDTO.setCode(productEntity.getCode());
         productResponseDTO.setName(productEntity.getName());
+        productResponseDTO.setQuantity(productEntity.getQuantity());
         productResponseDTO.setStatus(productEntity.getStatus());
         productResponseDTO.setCategoryId(productEntity.getCategory().getId());
         return productResponseDTO;
@@ -27,4 +28,5 @@ public class ConvertHelper {
         categoryResponseDTO.setProducts(productsList);
         return categoryResponseDTO;
     }
+
 }
