@@ -33,7 +33,7 @@ public class CategoryService {
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
 
-        List<ProductEntity> productsEntity = productRepository.findByInventoryId(id);
+        List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
 
         List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
 

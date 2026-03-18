@@ -31,4 +31,5 @@ public class CategoryController {
         ApiResponse<CategoryResponseDTO> response = categoryService.createCategory(categoryRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 }

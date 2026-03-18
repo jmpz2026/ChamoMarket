@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,5 +23,5 @@ public class CategoryEntity {
     private Boolean status;
 
     @OneToMany(mappedBy = "category")
-    private ArrayList<ProductEntity> products;
+    private List<ProductEntity> products;
 }
