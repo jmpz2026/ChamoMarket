@@ -18,7 +18,6 @@ public class CategoryUpdateRequestDTO {
     @NotNull
     private String name;
 
-    @NotEmpty
     @NotNull
     private Boolean status;
 
