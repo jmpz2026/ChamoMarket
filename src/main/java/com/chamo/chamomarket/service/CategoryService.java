@@ -53,9 +53,6 @@ public class CategoryService {
     }
 
     public ApiResponse<CategoryResponseDTO> createCategory(CategoryRequestDTO categoryRequestDTO){
-        if (categoryRepository.existsByName(categoryRequestDTO.getName())){
-            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
-        }
 
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(categoryRequestDTO.getName());
@@ -80,10 +77,6 @@ public class CategoryService {
         CategoryEntity categoryEntity = categoryRepository.findById(categoryUpdateRequestDTO.getId()).orElseThrow(
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
-
-        if (categoryRepository.existsByName(categoryUpdateRequestDTO.getName()) && !categoryEntity.getName().equals(categoryUpdateRequestDTO.getName())){
-            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
-        }
 
         if (categoryUpdateRequestDTO.getStatus() == categoryEntity.getStatus()){
             throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_STATUS);
