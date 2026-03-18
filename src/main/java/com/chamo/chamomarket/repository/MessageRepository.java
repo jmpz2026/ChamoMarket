@@ -10,4 +10,5 @@ public class MessageRepository {
     public static String CATEGORY_CONFLICT_NAME = "YA EXISTE UNA CATEGORIA CON ESTE NOMBRE";
     public static String CATEGORY_CONFLICT_STATUS = "ESTADO INVALIDO";
     public static String CATEGORY_UPDATED = "LA CATEGORIA HA SIDO MODIFICADA";
+    public static String CATEGORY_DISABLED = "LA CATEGORIA HA SIDO DESACTIVADA";
 }

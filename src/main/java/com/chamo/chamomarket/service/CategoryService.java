@@ -109,4 +109,20 @@ public class CategoryService {
 
         return response;
     }
+
+    public ApiResponse<?> deleteCategory(Long id){
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+        );
+
+        categoryEntity.setStatus(false);
+        categoryRepository.save(categoryEntity);
+
+        ApiResponse<?> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setMessage(MessageRepository.CATEGORY_DISABLED);
+        response.setData(null);
+
+        return response;
+    }
 }
