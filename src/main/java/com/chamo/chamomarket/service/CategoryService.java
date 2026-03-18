@@ -1,10 +1,12 @@
 package com.chamo.chamomarket.service;
 
 import com.chamo.chamomarket.dto.ApiResponse;
+import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
+import com.chamo.chamomarket.exception.ResourceExistsException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.helper.ConvertHelper;
 import com.chamo.chamomarket.repository.CategoryRepository;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +47,30 @@ public class CategoryService {
         response.setSuccess(true);
         response.setData(categoryResponseDTO);
         response.setMessage(MessageRepository.CATEGORY_FOUND);
+
+        return response;
+    }
+
+    public ApiResponse<CategoryResponseDTO> createCategory(CategoryRequestDTO categoryRequestDTO){
+        if (categoryRepository.existsByName(categoryRequestDTO.getName())){
+            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
+        }
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName(categoryRequestDTO.getName());
+        categoryEntity.setStatus(true);
+        categoryRepository.save(categoryEntity);
+
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(categoryEntity.getId());
+        categoryResponseDTO.setName(categoryEntity.getName());
+        categoryResponseDTO.setStatus(categoryEntity.getStatus());
+        categoryResponseDTO.setProducts(new ArrayList<>());
+
+        ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(categoryResponseDTO);
+        response.setMessage(MessageRepository.CATEGORY_CREATED);
 
         return response;
     }
