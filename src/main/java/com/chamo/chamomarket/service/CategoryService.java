@@ -81,7 +81,7 @@ public class CategoryService {
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
 
-        if (categoryRepository.existsByName(categoryUpdateRequestDTO.getName())){
+        if (categoryRepository.existsByName(categoryUpdateRequestDTO.getName()) && !categoryEntity.getName().equals(categoryUpdateRequestDTO.getName())){
             throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
         }
 

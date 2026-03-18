@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         ApiResponse<Object> response = new ApiResponse<>();
         response.setSuccess(false);
         response.setMessage(String.valueOf(errors));
-        response.setData(null);
+        response.setData(exception.getFieldErrors());
 
         return ResponseEntity
                 .status(exception.getStatusCode())
