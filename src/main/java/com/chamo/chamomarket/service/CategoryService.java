@@ -38,11 +38,7 @@ public class CategoryService {
 
         List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
 
-        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-        categoryResponseDTO.setId(categoryEntity.getId());
-        categoryResponseDTO.setName(categoryEntity.getName());
-        categoryResponseDTO.setStatus(categoryEntity.getStatus());
-        categoryResponseDTO.setProducts(productsList);
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -59,11 +55,7 @@ public class CategoryService {
         categoryEntity.setStatus(true);
         categoryRepository.save(categoryEntity);
 
-        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-        categoryResponseDTO.setId(categoryEntity.getId());
-        categoryResponseDTO.setName(categoryEntity.getName());
-        categoryResponseDTO.setStatus(categoryEntity.getStatus());
-        categoryResponseDTO.setProducts(new ArrayList<>());
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, new ArrayList<>());
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -89,11 +81,7 @@ public class CategoryService {
         categoryEntity.setStatus(categoryUpdateRequestDTO.getStatus());
         categoryRepository.save(categoryEntity);
 
-        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
-        categoryResponseDTO.setId(categoryEntity.getId());
-        categoryResponseDTO.setName(categoryEntity.getName());
-        categoryResponseDTO.setStatus(categoryEntity.getStatus());
-        categoryResponseDTO.setProducts(productsList);
+        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
