@@ -89,6 +89,24 @@ public class CategoryService {
             throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_STATUS);
         }
 
+        List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());
+        List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
 
+        categoryEntity.setName(categoryUpdateRequestDTO.getName());
+        categoryEntity.setStatus(categoryUpdateRequestDTO.getStatus());
+        categoryRepository.save(categoryEntity);
+
+        CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
+        categoryResponseDTO.setId(categoryEntity.getId());
+        categoryResponseDTO.setName(categoryEntity.getName());
+        categoryResponseDTO.setStatus(categoryEntity.getStatus());
+        categoryResponseDTO.setProducts(productsList);
+
+        ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(categoryResponseDTO);
+        response.setMessage(MessageRepository.CATEGORY_UPDATED);
+
+        return response;
     }
 }
