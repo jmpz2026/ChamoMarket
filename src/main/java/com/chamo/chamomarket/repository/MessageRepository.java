@@ -8,4 +8,5 @@ public class MessageRepository {
     public static String CATEGORY_FOUND = "LA CATEGORIA SE ENCONTRO";
     public static String CATEGORY_CREATED = "LA CATEGORIA HA SIDO CREADA";
     public static String CATEGORY_CONFLICT_NAME = "YA EXISTE UNA CATEGORIA CON ESTE NOMBRE";
+    public static String CATEGORY_CONFLICT_STATUS = "ESTADO INVALIDO";
 }

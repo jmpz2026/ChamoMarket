@@ -3,6 +3,7 @@ package com.chamo.chamomarket.service;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
+import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
@@ -73,5 +74,21 @@ public class CategoryService {
         response.setMessage(MessageRepository.CATEGORY_CREATED);
 
         return response;
+    }
+
+    public ApiResponse<CategoryResponseDTO> updateCategory(CategoryUpdateRequestDTO categoryUpdateRequestDTO){
+        CategoryEntity categoryEntity = categoryRepository.findById(categoryUpdateRequestDTO.getId()).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+        );
+
+        if (categoryRepository.existsByName(categoryUpdateRequestDTO.getName())){
+            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_NAME);
+        }
+
+        if (categoryUpdateRequestDTO.getStatus() == categoryEntity.getStatus()){
+            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_STATUS);
+        }
+
+
     }
 }

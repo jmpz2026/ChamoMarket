@@ -7,9 +7,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryRequestDTO {
+public class CategoryUpdateRequestDTO {
+
+    @NotEmpty
+    @NotNull
+    private Long id;
 
     @NotEmpty
     @NotNull
     private String name;
+
+    @NotEmpty
+    @NotNull
+    private Boolean status;
+
 }
