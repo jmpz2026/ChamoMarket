@@ -40,4 +40,10 @@ public class ProductController {
         ApiResponse<ProductResponseDTO> response = productService.updateProduct(productUpdateRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable @NotNull @Min(1) Long id) {
+        ApiResponse<?> response = productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

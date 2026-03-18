@@ -7,6 +7,8 @@ public class MessageRepository {
     public static String PRODUCT_FOUND = "EL PRODUCTO SE ENCONTRO";
     public static String PRODUCT_CREATED = "EL PRODUCTO HA SIDO CREADO";
     public static String PRODUCT_UPDATED = "EL PRODUCTO HA SIDO MODIFICADO";
+    public static String PRODUCT_DISABLED = "EL PRODUCTO HA SIDO DESHABILITADO";
+    public static String PRODUCT_NOT_AVAILABLE = "EL PRODUCTO NO ESTA DISPONIBLE";
 
     // Categorias
     public static String CATEGORY_NOT_FOUND = "NO SE ENCONTRO LA CATEGORIA";
@@ -16,4 +18,5 @@ public class MessageRepository {
     public static String CATEGORY_CONFLICT_STATUS = "ESTADO INVALIDO";
     public static String CATEGORY_UPDATED = "LA CATEGORIA HA SIDO MODIFICADA";
     public static String CATEGORY_DISABLED = "LA CATEGORIA HA SIDO DESACTIVADA";
+    public static String CATEGORY_NOT_AVAILABLE = "LA CATEGORIA NO ESTA DISPONIBLE";
 }

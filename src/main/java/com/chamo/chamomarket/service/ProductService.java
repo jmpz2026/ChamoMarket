@@ -6,6 +6,7 @@ import com.chamo.chamomarket.dto.product.ProductResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductUpdateRequestDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
+import com.chamo.chamomarket.exception.ResourceNoContentException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.helper.ConvertHelper;
 import com.chamo.chamomarket.repository.CategoryRepository;
@@ -44,6 +45,10 @@ public class ProductService {
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
 
+        if (categoryEntity.getStatus() == false){
+            throw new ResourceNoContentException(MessageRepository.CATEGORY_NOT_AVAILABLE);
+        }
+
         String code = UUID.randomUUID().toString();
 
         ProductEntity productEntity = new ProductEntity();
@@ -53,7 +58,6 @@ public class ProductService {
         productEntity.setCode(code);
         productEntity.setCategory(categoryEntity);
         productRepository.save(productEntity);
-
 
         ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
 
@@ -82,6 +86,26 @@ public class ProductService {
         response.setData(productResponseDTO);
         response.setSuccess(true);
         response.setMessage(MessageRepository.PRODUCT_UPDATED);
+
+        return response;
+    }
+
+    public ApiResponse<?> deleteProduct(Long id){
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+        );
+
+        if (productEntity.getStatus() == false){
+            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+        }
+
+        productEntity.setStatus(false);
+        productRepository.save(productEntity);
+
+        ApiResponse<?> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setMessage(MessageRepository.PRODUCT_DISABLED);
+        response.setData(null);
 
         return response;
     }
