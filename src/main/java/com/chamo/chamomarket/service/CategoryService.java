@@ -4,7 +4,6 @@ import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
-import com.chamo.chamomarket.dto.product.ProductResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
@@ -102,8 +101,8 @@ public class CategoryService {
 
         ApiResponse<?> response = new ApiResponse<>();
         response.setSuccess(true);
-        response.setMessage(MessageRepository.CATEGORY_DISABLED);
         response.setData(null);
+        response.setMessage(MessageRepository.CATEGORY_DISABLED);
 
         return response;
     }

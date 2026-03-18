@@ -9,6 +9,9 @@ public class MessageRepository {
     public static String PRODUCT_UPDATED = "EL PRODUCTO HA SIDO MODIFICADO";
     public static String PRODUCT_DISABLED = "EL PRODUCTO HA SIDO DESHABILITADO";
     public static String PRODUCT_NOT_AVAILABLE = "EL PRODUCTO NO ESTA DISPONIBLE";
+    public static String PRODUCT_ADDED = "SE AÑADIO STOCK AL PRODUCTO";
+    public static String PRODUCT_REMOVED = "SE AÑADIO STOCK AL PRODUCTO";
+    public static String PRODUCT_NOT_ENOUGH = "NO HAY SUFICIENTE PRODUCTO";
 
     // Categorias
     public static String CATEGORY_NOT_FOUND = "NO SE ENCONTRO LA CATEGORIA";

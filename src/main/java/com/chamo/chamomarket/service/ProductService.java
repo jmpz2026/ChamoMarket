@@ -3,9 +3,11 @@ package com.chamo.chamomarket.service;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.product.ProductRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductStockRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductUpdateRequestDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
+import com.chamo.chamomarket.exception.ResourceBadRequestException;
 import com.chamo.chamomarket.exception.ResourceNoContentException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.helper.ConvertHelper;
@@ -33,9 +35,9 @@ public class ProductService {
         ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
         response.setData(productResponseDTO);
         response.setMessage(MessageRepository.PRODUCT_FOUND);
-        response.setSuccess(true);
 
         return response;
     }
@@ -62,9 +64,9 @@ public class ProductService {
         ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
         response.setData(productResponseDTO);
         response.setMessage(MessageRepository.PRODUCT_CREATED);
-        response.setSuccess(true);
 
         return response;
     }
@@ -83,8 +85,8 @@ public class ProductService {
         ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
-        response.setData(productResponseDTO);
         response.setSuccess(true);
+        response.setData(productResponseDTO);
         response.setMessage(MessageRepository.PRODUCT_UPDATED);
 
         return response;
@@ -104,8 +106,53 @@ public class ProductService {
 
         ApiResponse<?> response = new ApiResponse<>();
         response.setSuccess(true);
-        response.setMessage(MessageRepository.PRODUCT_DISABLED);
         response.setData(null);
+        response.setMessage(MessageRepository.PRODUCT_DISABLED);
+
+        return response;
+    }
+
+    // Añadir y remover Stock
+    public ApiResponse<ProductResponseDTO> addStock(ProductStockRequestDTO productStockRequestDTO, Long id) {
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+        );
+
+        if (productEntity.getStatus() == false){
+            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+        }
+
+        productEntity.setQuantity(productEntity.getQuantity() + productStockRequestDTO.getQuantity());
+        productRepository.save(productEntity);
+
+        ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(ConvertHelper.convertProductEntityToProductResponseDTO(productEntity));
+        response.setMessage(MessageRepository.PRODUCT_ADDED);
+
+        return response;
+    }
+
+    public ApiResponse<ProductResponseDTO> removeStock(ProductStockRequestDTO productStockRequestDTO, Long id) {
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+        );
+
+        if (productEntity.getStatus() == false){
+            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+        }
+
+        if (productEntity.getQuantity() < productStockRequestDTO.getQuantity() || (productEntity.getQuantity() - productStockRequestDTO.getQuantity() <= 0)){
+            throw new ResourceBadRequestException(MessageRepository.PRODUCT_NOT_ENOUGH);
+        }
+
+        productEntity.setQuantity(productEntity.getQuantity() - productStockRequestDTO.getQuantity());
+        productRepository.save(productEntity);
+
+        ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(ConvertHelper.convertProductEntityToProductResponseDTO(productEntity));
+        response.setMessage(MessageRepository.PRODUCT_REMOVED);
 
         return response;
     }
