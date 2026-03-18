@@ -2,6 +2,7 @@ package com.chamo.chamomarket.helper;
 
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
 
@@ -20,7 +21,17 @@ public class ConvertHelper {
         return productResponseDTO;
     }
 
-    public static CategoryResponseDTO convertCategoryEntityToCategoryResponseDTO(CategoryEntity categoryEntity, List<ProductResponseDTO> productsList){
+    public static ProductSimpleResponseDTO convertProductEntityToProductSimpleResponseDTO(ProductEntity productEntity){
+        ProductSimpleResponseDTO productSimpleResponseDTO = new ProductSimpleResponseDTO();
+        productSimpleResponseDTO.setId(productEntity.getId());
+        productSimpleResponseDTO.setCode(productEntity.getCode());
+        productSimpleResponseDTO.setName(productEntity.getName());
+        productSimpleResponseDTO.setQuantity(productEntity.getQuantity());
+        productSimpleResponseDTO.setStatus(productEntity.getStatus());
+        return productSimpleResponseDTO;
+    }
+
+    public static CategoryResponseDTO convertCategoryEntityToCategoryResponseDTO(CategoryEntity categoryEntity, List<ProductSimpleResponseDTO> productsList){
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(categoryEntity.getId());
         categoryResponseDTO.setName(categoryEntity.getName());

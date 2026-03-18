@@ -1,6 +1,6 @@
 package com.chamo.chamomarket.dto.category;
 
-import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +13,5 @@ public class CategoryResponseDTO {
     private Long id;
     private String name;
     private Boolean status;
-    private List<ProductResponseDTO> products;
+    private List<ProductSimpleResponseDTO> products;
 }

@@ -5,6 +5,7 @@ import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductResponseDTO;
+import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
 import com.chamo.chamomarket.exception.ResourceExistsException;
@@ -36,7 +37,7 @@ public class CategoryService {
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
 
-        List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
 
         CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
@@ -75,7 +76,7 @@ public class CategoryService {
         }
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());
-        List<ProductResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductResponseDTO).collect(Collectors.toList());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
 
         categoryEntity.setName(categoryUpdateRequestDTO.getName());
         categoryEntity.setStatus(categoryUpdateRequestDTO.getStatus());
