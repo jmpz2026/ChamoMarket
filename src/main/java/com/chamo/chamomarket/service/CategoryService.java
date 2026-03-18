@@ -11,10 +11,8 @@ import com.chamo.chamomarket.repository.CategoryRepository;
 import com.chamo.chamomarket.repository.MessageRepository;
 import com.chamo.chamomarket.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
