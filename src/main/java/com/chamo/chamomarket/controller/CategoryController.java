@@ -14,12 +14,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
 
     private final CategoryService categoryService;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<CategoryResponseDTO>>> getAllCategories() {
+        ApiResponse<List<CategoryResponseDTO>> response = categoryService.getAllCategories();
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> getCategoryById(@PathVariable @NotNull @Min(1) Long id) {
