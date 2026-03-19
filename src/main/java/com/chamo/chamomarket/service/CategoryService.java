@@ -31,7 +31,7 @@ public class CategoryService {
 
     public ApiResponse<List<CategoryResponseDTO>> getAllCategories(){
         List<CategoryResponseDTO> categoryResponseDTOS = new ArrayList<>();
-        List<CategoryEntity> categoryEntities = categoryRepository.findAllByOrderByNameAsc();
+        List<CategoryEntity> categoryEntities = categoryRepository.findAllByStatusTrueOrderByNameAsc();
         categoryEntities.forEach(categoryEntity -> {
             List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryEntity.getId());
             List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
@@ -113,6 +113,11 @@ public class CategoryService {
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
+
+        List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
+        productsEntity.forEach(productEntity -> {
+            productEntity.setStatus(false);
+        });
 
         categoryEntity.setStatus(false);
         categoryRepository.save(categoryEntity);

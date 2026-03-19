@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity,Long> {
     public boolean existsByName(String name);
-    public List<CategoryEntity> findAllByOrderByNameAsc();
+    public List<CategoryEntity> findAllByStatusTrueOrderByNameAsc();
 }
