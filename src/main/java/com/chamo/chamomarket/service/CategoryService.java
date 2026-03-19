@@ -7,7 +7,7 @@ import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
 import com.chamo.chamomarket.dto.product.ProductSimpleResponseDTO;
 import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
-import com.chamo.chamomarket.exception.ResourceExistsException;
+import com.chamo.chamomarket.exception.ResourceConflictException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.helper.ConvertHelper;
 import com.chamo.chamomarket.repository.CategoryRepository;
@@ -28,6 +28,24 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+
+    public ApiResponse<List<CategoryResponseDTO>> getAllCategories(){
+        List<CategoryResponseDTO> categoryResponseDTOS = new ArrayList<>();
+        List<CategoryEntity> categoryEntities = categoryRepository.findAllByOrderByNameAsc();
+        categoryEntities.forEach(categoryEntity -> {
+            List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryEntity.getId());
+            List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
+            CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
+            categoryResponseDTOS.add(categoryResponseDTO);
+        });
+
+        ApiResponse<List<CategoryResponseDTO>> response = new ApiResponse<>();
+        response.setSuccess(true);
+        response.setData(categoryResponseDTOS);
+        response.setMessage(MessageRepository.CATEGORY_ALL_FOUND);
+
+        return response;
+    }
 
     public ApiResponse<CategoryResponseDTO> getCategoryById(Long id){
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
@@ -71,7 +89,7 @@ public class CategoryService {
         );
 
         if (categoryUpdateRequestDTO.getStatus() == categoryEntity.getStatus()){
-            throw new ResourceExistsException(MessageRepository.CATEGORY_CONFLICT_STATUS);
+            throw new ResourceConflictException(MessageRepository.CATEGORY_CONFLICT_STATUS);
         }
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());

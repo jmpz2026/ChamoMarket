@@ -22,4 +22,5 @@ public class MessageRepository {
     public static String CATEGORY_UPDATED = "LA CATEGORIA HA SIDO MODIFICADA";
     public static String CATEGORY_DISABLED = "LA CATEGORIA HA SIDO DESACTIVADA";
     public static String CATEGORY_NOT_AVAILABLE = "LA CATEGORIA NO ESTA DISPONIBLE";
+    public static String CATEGORY_ALL_FOUND = "TODAS LAS CATEGORIAS SE ENCONTRARON";
 }
