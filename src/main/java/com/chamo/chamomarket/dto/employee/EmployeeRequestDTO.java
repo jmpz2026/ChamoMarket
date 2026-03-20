@@ -1,4 +1,4 @@
-package com.chamo.chamomarket.dto;
+package com.chamo.chamomarket.dto.employee;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;

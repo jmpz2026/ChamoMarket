@@ -26,30 +26,36 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<ApiResponse<List<CategoryResponseDTO>>> getAllCategories() {
         ApiResponse<List<CategoryResponseDTO>> response = categoryService.getAllCategories();
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return ResponseEntity
+                .ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> getCategoryById(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<CategoryResponseDTO> response = categoryService.getCategoryById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return ResponseEntity
+                .ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> createCategory(@RequestBody @Valid CategoryRequestDTO categoryRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.createCategory(categoryRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @PutMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> updateCategory(@RequestBody @Valid CategoryUpdateRequestDTO categoryUpdateRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.updateCategory(categoryUpdateRequestDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable @NotNull @Min(1) Long id) {
-        ApiResponse<?> response = categoryService.deleteCategory(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        categoryService.deleteCategory(id);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

@@ -1,7 +1,7 @@
 package com.chamo.chamomarket.controller;
 
-import com.chamo.chamomarket.dto.EmployeeRequestDTO;
-import com.chamo.chamomarket.dto.EmployeeResponseDTO;
+import com.chamo.chamomarket.dto.employee.EmployeeRequestDTO;
+import com.chamo.chamomarket.dto.employee.EmployeeResponseDTO;
 import com.chamo.chamomarket.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,9 @@ public class EmployeeController {
 
     @PostMapping
     public ResponseEntity<EmployeeResponseDTO> save(@RequestBody @Valid EmployeeRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.createEmployee(request));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(employeeService.createEmployee(request));
     }
 
     @GetMapping("/search")
@@ -31,6 +33,7 @@ public class EmployeeController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
 
-        return ResponseEntity.ok(employeeService.findEmployees(role, start, end));
+        return ResponseEntity
+                .ok(employeeService.findEmployees(role, start, end));
     }
 }

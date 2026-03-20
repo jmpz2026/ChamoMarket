@@ -1,11 +1,14 @@
 package com.chamo.chamomarket.service;
 
-import com.chamo.chamomarket.dto.EmployeeRequestDTO;
-import com.chamo.chamomarket.dto.EmployeeResponseDTO;
-import com.chamo.chamomarket.entity.EmployeeEntity;
-import com.chamo.chamomarket.entity.EmployeeRole;
+import com.chamo.chamomarket.dto.employee.EmployeeRequestDTO;
+import com.chamo.chamomarket.dto.employee.EmployeeResponseDTO;
+import com.chamo.chamomarket.entity.employee.EmployeeEntity;
+import com.chamo.chamomarket.entity.employee.EmployeeRole;
+import com.chamo.chamomarket.exception.ResourceConflictException;
 import com.chamo.chamomarket.exception.ResourceExistsException;
+import com.chamo.chamomarket.mapper.EmployeeMapper;
 import com.chamo.chamomarket.repository.EmployeeRepository;
+import com.chamo.chamomarket.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +26,7 @@ public class EmployeeService {
     public EmployeeResponseDTO createEmployee(EmployeeRequestDTO request) {
 
         if (employeeRepository.existsByDocument(request.getDocument())) {
-            throw new ResourceExistsException("EL EMPLEADO CON ESTA CEDULA YA EXISTE");
+            throw new ResourceExistsException(MessageRepository.EMPLOYEE_EXISTS);
         }
 
         EmployeeEntity employee = new EmployeeEntity();
@@ -34,14 +37,14 @@ public class EmployeeService {
         try {
             employee.setRole(EmployeeRole.valueOf(request.getRole().toUpperCase()));
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("CARGO NO VALIDO: Solo ADMINISTRADOR, CAJERO o AUXILIAR");
+            throw new ResourceConflictException(MessageRepository.EMPLOYEE_INVALID_ROLE);
         }
 
         employee.setHireDate(request.getHireDate());
         employee.setSalary(request.getSalary());
 
         employeeRepository.save(employee);
-        return mapToDTO(employee);
+        return EmployeeMapper.mapToDTO(employee);
     }
 
 
@@ -56,17 +59,6 @@ public class EmployeeService {
             employees = employeeRepository.findAll();
         }
 
-        return employees.stream().map(this::mapToDTO).collect(Collectors.toList());
+        return employees.stream().map(EmployeeMapper::mapToDTO).collect(Collectors.toList());
     }
-
-    private EmployeeResponseDTO mapToDTO(EmployeeEntity entity) {
-        EmployeeResponseDTO dto = new EmployeeResponseDTO();
-        dto.setId(entity.getId());
-        dto.setDocument(entity.getDocument());
-        dto.setName(entity.getName());
-        dto.setRole(entity.getRole().name());
-        dto.setHireDate(entity.getHireDate());
-        dto.setSalary(entity.getSalary());
-        return dto;
-    }
-}
+ }

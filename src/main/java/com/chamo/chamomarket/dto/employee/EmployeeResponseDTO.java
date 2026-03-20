@@ -1,4 +1,4 @@
-package com.chamo.chamomarket.dto;
+package com.chamo.chamomarket.dto.employee;
 
 import lombok.Getter;
 import lombok.Setter;
