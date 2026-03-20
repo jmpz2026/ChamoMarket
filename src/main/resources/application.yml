@@ -15,22 +15,30 @@ spring:
     console:
       enabled: true
 
+ feature/module3
 
   sql:
     init:
       mode: always
 
+
+develop
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
+ feature/module3
 
     defer-datasource-initialization: true
+ develop
     properties:
       hibernate:
         format-sql: true
 
+ feature/module3
+
+develop
 logging:
   level:
     org.springframework: INFO
