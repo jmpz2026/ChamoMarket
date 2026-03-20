@@ -1,4 +1,4 @@
-package com.chamo.chamomarket.entity;
+package com.chamo.chamomarket.entity.employee;
 
 import jakarta.persistence.*;
 import lombok.Getter;

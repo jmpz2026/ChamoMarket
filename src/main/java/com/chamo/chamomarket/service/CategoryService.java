@@ -9,7 +9,8 @@ import com.chamo.chamomarket.entity.CategoryEntity;
 import com.chamo.chamomarket.entity.ProductEntity;
 import com.chamo.chamomarket.exception.ResourceConflictException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
-import com.chamo.chamomarket.helper.ConvertHelper;
+import com.chamo.chamomarket.mapper.CategoryMapper;
+import com.chamo.chamomarket.mapper.ProductMapper;
 import com.chamo.chamomarket.repository.CategoryRepository;
 import com.chamo.chamomarket.repository.MessageRepository;
 import com.chamo.chamomarket.repository.ProductRepository;
@@ -34,8 +35,8 @@ public class CategoryService {
         List<CategoryEntity> categoryEntities = categoryRepository.findAllByStatusTrueOrderByNameAsc();
         categoryEntities.forEach(categoryEntity -> {
             List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryEntity.getId());
-            List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
-            CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
+            List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ProductMapper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
+            CategoryResponseDTO categoryResponseDTO = CategoryMapper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
             categoryResponseDTOS.add(categoryResponseDTO);
         });
 
@@ -54,9 +55,9 @@ public class CategoryService {
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
 
-        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ProductMapper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
 
-        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
+        CategoryResponseDTO categoryResponseDTO = CategoryMapper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -73,7 +74,7 @@ public class CategoryService {
         categoryEntity.setStatus(true);
         categoryRepository.save(categoryEntity);
 
-        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, new ArrayList<>());
+        CategoryResponseDTO categoryResponseDTO = CategoryMapper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, new ArrayList<>());
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -93,13 +94,13 @@ public class CategoryService {
         }
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());
-        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ConvertHelper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
+        List<ProductSimpleResponseDTO> productsList = productsEntity.stream().map(ProductMapper::convertProductEntityToProductSimpleResponseDTO).collect(Collectors.toList());
 
         categoryEntity.setName(categoryUpdateRequestDTO.getName());
         categoryEntity.setStatus(categoryUpdateRequestDTO.getStatus());
         categoryRepository.save(categoryEntity);
 
-        CategoryResponseDTO categoryResponseDTO = ConvertHelper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
+        CategoryResponseDTO categoryResponseDTO = CategoryMapper.convertCategoryEntityToCategoryResponseDTO(categoryEntity, productsList);
 
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -109,7 +110,7 @@ public class CategoryService {
         return response;
     }
 
-    public ApiResponse<?> deleteCategory(Long id){
+    public void deleteCategory(Long id){
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
         );
@@ -121,12 +122,5 @@ public class CategoryService {
 
         categoryEntity.setStatus(false);
         categoryRepository.save(categoryEntity);
-
-        ApiResponse<?> response = new ApiResponse<>();
-        response.setSuccess(true);
-        response.setData(null);
-        response.setMessage(MessageRepository.CATEGORY_DISABLED);
-
-        return response;
     }
 }

@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> getProductById(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.getProductById(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
@@ -39,13 +39,13 @@ public class ProductController {
     @PutMapping
     public ResponseEntity<ApiResponse<ProductResponseDTO>> updateProduct(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
         ApiResponse<ProductResponseDTO> response = productService.updateProduct(productUpdateRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteProduct(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<?> response = productService.deleteProduct(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.noContent().build();
     }
 
     // Añadir y Remover Stock
@@ -53,12 +53,12 @@ public class ProductController {
     @PutMapping("/{id}/add-stock")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> addStock(@RequestBody @Valid ProductStockRequestDTO productStockRequestDTO, @PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.addStock(productStockRequestDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}/remove-stock")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> removeStock(@RequestBody @Valid ProductStockRequestDTO productStockRequestDTO, @PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.removeStock(productStockRequestDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.ok(response);
     }
 }

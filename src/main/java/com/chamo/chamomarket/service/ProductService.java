@@ -10,7 +10,7 @@ import com.chamo.chamomarket.entity.ProductEntity;
 import com.chamo.chamomarket.exception.ResourceBadRequestException;
 import com.chamo.chamomarket.exception.ResourceNoContentException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
-import com.chamo.chamomarket.helper.ConvertHelper;
+import com.chamo.chamomarket.mapper.ProductMapper;
 import com.chamo.chamomarket.repository.CategoryRepository;
 import com.chamo.chamomarket.repository.MessageRepository;
 import com.chamo.chamomarket.repository.ProductRepository;
@@ -32,7 +32,7 @@ public class ProductService {
                 () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
         );
 
-        ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
+        ProductResponseDTO productResponseDTO = ProductMapper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -61,7 +61,7 @@ public class ProductService {
         productEntity.setCategory(categoryEntity);
         productRepository.save(productEntity);
 
-        ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
+        ProductResponseDTO productResponseDTO = ProductMapper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -82,7 +82,7 @@ public class ProductService {
         productEntity.setStatus(productUpdateRequestDTO.getStatus());
         productRepository.save(productEntity);
 
-        ProductResponseDTO productResponseDTO = ConvertHelper.convertProductEntityToProductResponseDTO(productEntity);
+        ProductResponseDTO productResponseDTO = ProductMapper.convertProductEntityToProductResponseDTO(productEntity);
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
@@ -127,7 +127,7 @@ public class ProductService {
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
-        response.setData(ConvertHelper.convertProductEntityToProductResponseDTO(productEntity));
+        response.setData(ProductMapper.convertProductEntityToProductResponseDTO(productEntity));
         response.setMessage(MessageRepository.PRODUCT_ADDED);
 
         return response;
@@ -151,7 +151,7 @@ public class ProductService {
 
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
-        response.setData(ConvertHelper.convertProductEntityToProductResponseDTO(productEntity));
+        response.setData(ProductMapper.convertProductEntityToProductResponseDTO(productEntity));
         response.setMessage(MessageRepository.PRODUCT_REMOVED);
 
         return response;
