@@ -1,5 +1,7 @@
 package com.chamo.chamomarket.entity;
 
+import java.util.ArrayList;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +28,14 @@ public class ProductEntity {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
+    @Column(name = "price", nullable = false)
+    private Double price;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Proveedor> proveedores = new ArrayList<>();
+
     private CategoryEntity category;
 }

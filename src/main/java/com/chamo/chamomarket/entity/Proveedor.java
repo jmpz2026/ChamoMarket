@@ -1,5 +1,5 @@
 package com.chamo.chamomarket.entity;
-
+import com.chamo.chamomarket.entity.ProductEntity;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -16,11 +16,10 @@ public class Proveedor {
 
     private String nombre;
 
-    // Relación con productos (la conectamos luego)
+    
     @ManyToMany
-    private List<Producto> productos;
-
-    // getters y setters
+    private List<ProductEntity> productos;
+    
     public Long getId() { return id; }
 
     public String getNit() { return nit; }
@@ -29,8 +28,8 @@ public class Proveedor {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public List<Producto> getProductos() { return productos; }
-    public void setProductos(List<Producto> productos) { this.productos = productos; }
+    public List<ProductEntity> getProductos() { return productos; }
+    public void setProductos(List<ProductEntity> productos) { this.productos = productos; }
 }
     
 
