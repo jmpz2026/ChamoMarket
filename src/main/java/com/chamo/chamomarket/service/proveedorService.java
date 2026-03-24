@@ -9,7 +9,7 @@ import com.chamo.chamomarket.repository.ProveedorRepository;
 import com.chamo.chamomarket.repository.ProductRepository;
 
 @Service
-public class Proveedorservice {
+public class ProveedorService {
 
     @Autowired
     private ProveedorRepository proveedorRepository;

@@ -1,6 +1,5 @@
 package com.chamo.chamomarket.entity;
-import com.chamo.chamomarket.entity.ProductEntity;
-
+import com.chamo.chamomarket.entity.Proveedor;
 import jakarta.persistence.*;
 import java.util.List;
 

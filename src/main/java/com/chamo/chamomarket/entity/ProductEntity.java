@@ -1,7 +1,8 @@
 package com.chamo.chamomarket.entity;
+import com.chamo.chamomarket.entity.Proveedor;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
