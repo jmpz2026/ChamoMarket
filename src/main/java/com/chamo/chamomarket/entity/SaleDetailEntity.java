@@ -14,6 +14,7 @@ public class SaleDetailEntity {
     private Long id;
 
     private Integer quantity;
+    private Double price;
     private Double subtotal;
 
     @ManyToOne

@@ -36,6 +36,8 @@ public class SaleService {
             SaleDetailEntity detail = new SaleDetailEntity();
             detail.setProduct(product);
             detail.setQuantity(item.getQuantity());
+            detail.setPrice(product.getPrice());
+            detail.setSubtotal(product.getPrice() * item.getQuantity());
             detail.setSale(sale);
 
             sale.getDetails().add(detail);
