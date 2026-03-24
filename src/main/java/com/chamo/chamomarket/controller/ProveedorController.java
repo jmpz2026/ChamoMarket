@@ -23,4 +23,5 @@ public String entradaStock(@RequestParam Long productoId,
 
     return service.entradaStock(productoId, proveedorId, cantidad);
 }
+    
 }

@@ -11,7 +11,8 @@ import com.chamo.chamomarket.entity.Producto;
 
 @Service
 public class ProveedorService {
-
+    @Autowired
+    private ProductService productService;
     @Autowired
     private ProveedorRepository repository;
     @Autowired
@@ -25,12 +26,10 @@ public class ProveedorService {
     }
     public String entradaStock(Long productoId, Long proveedorId, int cantidad) {
 
-    Producto producto = productoRepository.findById(productoId)
-            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    repository.findById(proveedorId)
+        .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
 
-    producto.setStock(producto.getStock() + cantidad);
-
-    productoRepository.save(producto);
+    productService.actualizarStock(productoId, cantidad);
 
     return "Stock actualizado correctamente";
 }

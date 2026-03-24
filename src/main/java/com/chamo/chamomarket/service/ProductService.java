@@ -156,4 +156,14 @@ public class ProductService {
 
         return response;
     }
+    
+    public void actualizarStock(Long productoId, int cantidad) {
+
+    ProductEntity producto = productRepository.findById(productoId)
+        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+    producto.setQuantity(producto.getQuantity() + cantidad);
+
+    productRepository.save(producto);
+}
 }
