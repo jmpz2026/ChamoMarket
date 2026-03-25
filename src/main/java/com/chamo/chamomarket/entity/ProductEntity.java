@@ -32,11 +32,10 @@ public class ProductEntity {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-
     @ManyToMany(mappedBy = "productos")
     private List<Proveedor> proveedores = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 }

@@ -8,4 +8,5 @@ import lombok.Setter;
 public class ProductStockRequestDTO {
 
     private Integer quantity;
+
 }
