@@ -58,6 +58,7 @@ public class ProductService {
         productEntity.setStatus(productRequestDTO.getStatus());
         productEntity.setQuantity(productRequestDTO.getQuantity());
         productEntity.setCode(code);
+        productEntity.setPrice(productRequestDTO.getPrice());
         productEntity.setCategory(categoryEntity);
         productRepository.save(productEntity);
 
@@ -79,6 +80,7 @@ public class ProductService {
         productEntity.setName(productUpdateRequestDTO.getName());
         productEntity.setStatus(productUpdateRequestDTO.getStatus());
         productEntity.setQuantity(productUpdateRequestDTO.getQuantity());
+        productEntity.setPrice(productUpdateRequestDTO.getPrice());
         productEntity.setStatus(productUpdateRequestDTO.getStatus());
         productRepository.save(productEntity);
 

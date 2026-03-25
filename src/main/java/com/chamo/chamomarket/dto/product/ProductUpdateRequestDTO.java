@@ -11,5 +11,6 @@ public class ProductUpdateRequestDTO {
     private String name;
     private Boolean status;
     private Integer quantity;
+    private Double price;
 
 }

@@ -160,7 +160,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"name\": \"pasdaancito\",\r\n    \"status\": true,\r\n    \"quantity\": 10,\r\n    \"categoryId\": 2\r\n}",
+                  "raw": "{\r\n    \"name\": \"heikenen\",\r\n    \"status\": true,\r\n    \"quantity\": 10,\r\n    \"price\": 1000,\r\n    \"categoryId\": 1\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -188,7 +188,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"pelopelo\",\r\n    \"status\": true,\r\n    \"quantity\": 5\r\n}",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"pelopelo\",\r\n    \"status\": true,\r\n    \"price\": 50,\r\n    \"quantity\": 5\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -244,7 +244,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product/2/add-stock",
+                  "raw": "http://localhost:8081/product/1/add-stock",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -252,7 +252,7 @@
                   "port": "8081",
                   "path": [
                     "product",
-                    "2",
+                    "1",
                     "add-stock"
                   ]
                 }
@@ -266,7 +266,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"quantity\": 123\r\n}",
+                  "raw": "{\r\n    \"quantity\": 22\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -274,7 +274,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product/2/remove-stock",
+                  "raw": "http://localhost:8081/product/1/remove-stock",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -282,7 +282,7 @@
                   "port": "8081",
                   "path": [
                     "product",
-                    "2",
+                    "1",
                     "remove-stock"
                   ]
                 }
@@ -303,7 +303,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": 3,\r\n      \"quantity\": 5\r\n    }\r\n  ]\r\n}",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -363,7 +363,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8081/employee/search?Role=ADMINISTRADOR",
+              "raw": "http://localhost:8081/employee/search?Id=1",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -375,8 +375,8 @@
               ],
               "query": [
                 {
-                  "key": "Role",
-                  "value": "ADMINISTRADOR"
+                  "key": "Id",
+                  "value": "1"
                 }
               ]
             }
@@ -422,12 +422,12 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "POST http://localhost:8080/proveedores/entrada?productoId=1&proveedorId=2&cantidad=10",
-              "protocol": "POST http",
+              "raw": "http://localhost:8081/proveedores/entrada?productoId=1&proveedorId=1&cantidad=10",
+              "protocol": "http",
               "host": [
                 "localhost"
               ],
-              "port": "8080",
+              "port": "8081",
               "path": [
                 "proveedores",
                 "entrada"
@@ -439,7 +439,7 @@
                 },
                 {
                   "key": "proveedorId",
-                  "value": "2"
+                  "value": "1"
                 },
                 {
                   "key": "cantidad",
