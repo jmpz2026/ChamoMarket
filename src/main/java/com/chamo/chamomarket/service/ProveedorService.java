@@ -33,4 +33,8 @@ public class ProveedorService {
 
     return "Stock actualizado correctamente";
 }
+    public Proveedor obtenerPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
+    }
 }
