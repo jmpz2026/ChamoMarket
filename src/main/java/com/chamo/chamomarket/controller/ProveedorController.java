@@ -24,5 +24,9 @@ public class ProveedorController {
 
     return service.entradaStock(productoId, proveedorId, cantidad);
 }
+    @GetMapping("/{id}")
+    public Proveedor obtenerPorId(@PathVariable Long id) {
+        return service.obtenerPorId(id);
+    }
     
 }

@@ -36,10 +36,10 @@ public class ProveedorService {
             producto.getProveedores().add(proveedor);
         }
 
-        // Sumar stock
-        producto.setQuantity(producto.getQuantity() + cantidad);
-        productRepository.save(producto);
-
-        return "Stock actualizado. Nuevo stock: " + producto.getQuantity();
+    return "Stock actualizado correctamente";
+}
+    public Proveedor obtenerPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado"));
     }
 }
