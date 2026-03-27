@@ -12,6 +12,7 @@ public class ProductMapper {
         productResponseDTO.setCode(productEntity.getCode());
         productResponseDTO.setName(productEntity.getName());
         productResponseDTO.setQuantity(productEntity.getQuantity());
+        productResponseDTO.setPrice(productEntity.getPrice());
         productResponseDTO.setStatus(productEntity.getStatus());
         productResponseDTO.setCategoryId(productEntity.getCategory().getId());
         return productResponseDTO;

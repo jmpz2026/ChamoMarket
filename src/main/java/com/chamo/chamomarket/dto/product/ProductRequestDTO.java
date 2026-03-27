@@ -10,5 +10,6 @@ public class ProductRequestDTO {
     private String name;
     private Boolean status;
     private Integer quantity;
+    private Double price;
     private Long categoryId;
 }

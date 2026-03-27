@@ -1,5 +1,8 @@
 package com.chamo.chamomarket.entity;
+import com.chamo.chamomarket.entity.Proveedor;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +28,12 @@ public class ProductEntity {
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    @Column(name = "price", nullable = false)
+    private Double price;
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Proveedor> proveedores = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

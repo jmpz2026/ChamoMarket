@@ -12,5 +12,6 @@ public class ProductResponseDTO {
     private String code;
     private Boolean status;
     private Integer quantity;
+    private Double price;
     private Long categoryId;
 }

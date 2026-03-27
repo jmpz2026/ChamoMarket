@@ -16,8 +16,9 @@ public class ProveedorController {
     public Proveedor crear(@RequestBody Proveedor proveedor) {
         return service.guardar(proveedor);
     }
+
     @PostMapping("/entrada")
-public String entradaStock(@RequestParam Long productoId,
+    public String entradaStock(@RequestParam Long productoId,
                           @RequestParam Long proveedorId,
                           @RequestParam int cantidad) {
 
