@@ -1,0 +1,30 @@
+package com.chamo.chamomarket.repository;
+
+
+public class MessageRepository {
+    // Productos
+    public static String PRODUCT_NOT_FOUND = "NO SE ENCONTRO EL PRODUCTO";
+    public static String PRODUCT_FOUND = "EL PRODUCTO SE ENCONTRO";
+    public static String PRODUCT_CREATED = "EL PRODUCTO HA SIDO CREADO";
+    public static String PRODUCT_UPDATED = "EL PRODUCTO HA SIDO MODIFICADO";
+    public static String PRODUCT_DISABLED = "EL PRODUCTO HA SIDO DESHABILITADO";
+    public static String PRODUCT_NOT_AVAILABLE = "EL PRODUCTO NO ESTA DISPONIBLE";
+    public static String PRODUCT_ADDED = "SE AÑADIO STOCK AL PRODUCTO";
+    public static String PRODUCT_REMOVED = "SE AÑADIO STOCK AL PRODUCTO";
+    public static String PRODUCT_NOT_ENOUGH = "NO HAY SUFICIENTE PRODUCTO";
+
+    // Categorias
+    public static String CATEGORY_NOT_FOUND = "NO SE ENCONTRO LA CATEGORIA";
+    public static String CATEGORY_FOUND = "LA CATEGORIA SE ENCONTRO";
+    public static String CATEGORY_CREATED = "LA CATEGORIA HA SIDO CREADA";
+    public static String CATEGORY_CONFLICT_NAME = "YA EXISTE UNA CATEGORIA CON ESTE NOMBRE";
+    public static String CATEGORY_CONFLICT_STATUS = "ESTADO INVALIDO";
+    public static String CATEGORY_UPDATED = "LA CATEGORIA HA SIDO MODIFICADA";
+    public static String CATEGORY_DISABLED = "LA CATEGORIA HA SIDO DESACTIVADA";
+    public static String CATEGORY_NOT_AVAILABLE = "LA CATEGORIA NO ESTA DISPONIBLE";
+    public static String CATEGORY_ALL_FOUND = "TODAS LAS CATEGORIAS SE ENCONTRARON";
+
+    // Empleados
+    public static String EMPLOYEE_EXISTS = "EL EMPLEADO CON ESTA CEDULA YA EXISTE";
+    public static String EMPLOYEE_INVALID_ROLE = "CARGO NO VALIDO: Solo ADMINISTRADOR, CAJERO o AUXILIAR";
+}
