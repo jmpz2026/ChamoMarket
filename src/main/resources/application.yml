@@ -31,7 +31,11 @@ spring:
       hibernate:
         format-sql: true
 
-logging:
-  level:
+  logging:
+    level:
     org.springframework: INFO
     com.myapp: DEBUG
+
+  jwt:
+    secret: chamoMarketSecretKey2024XyZ123456789AbCdEfGhIjKlMnOpQrStUvWxYz
+    expiration: 86400000
