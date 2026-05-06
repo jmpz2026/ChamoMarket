@@ -30,4 +30,10 @@ public class EmployeeEntity {
 
     @Column(nullable = false)
     private Double salary;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 }
