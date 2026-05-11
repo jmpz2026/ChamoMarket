@@ -53,8 +53,8 @@ public class JwtService {
     // here we validate the token
     public boolean isTokenValid(String token) {
         try {
-            Claims claims = extractAllClaims(token);
-            return claims.getExpiration().after(new Date());
+            Jwts.parser().verifyWith(getSigninKey()).build().parseSignedClaims(token);
+            return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
@@ -62,11 +62,10 @@ public class JwtService {
 
     // extract data
     public TokenDataDTO extractTokenData(String token) {
-        Claims claims = extractAllClaims(token);
 
-        String username = claims.getSubject();
-        Long employeeId = claims.get("employeeId", Long.class);
-        String role = claims.get("role", String.class);
+        String username = extractClaims(token, Claims::getSubject);
+        Long employeeId = extractClaims(token, claims -> claims.get("employeeId", Long.class));
+        String role = extractClaims(token, claims -> claims.get("role", String.class));
 
         return new TokenDataDTO(username, employeeId, role);
     }
