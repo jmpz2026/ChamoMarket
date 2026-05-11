@@ -42,10 +42,10 @@ public class JwtService {
         Date expiration = new Date(now.getTime() + expirationMs);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiration)
+                .claims(claims)
+                .subject(username)
+                .issuedAt(now)
+                .expiration(expiration)
                 .signWith(getSigninKey())
                 .compact();
     }
