@@ -16,10 +16,6 @@ public class JwtValidationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
-    private final List<String> PUBLIC_ROUTES = List.of(
-            "/auth"
-    );
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws java.io.IOException {
@@ -61,6 +57,6 @@ public class JwtValidationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return PUBLIC_ROUTES.stream().anyMatch(path::startsWith);
+        return PublicRoutes.PUBLIC_ROUTES.stream().anyMatch(path::startsWith);
     }
 }
