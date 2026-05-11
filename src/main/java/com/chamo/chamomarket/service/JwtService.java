@@ -63,9 +63,9 @@ public class JwtService {
     // extract data
     public TokenDataDTO extractTokenData(String token) {
 
-        String username = extractClaims(token, Claims::getSubject);
-        Long employeeId = extractClaims(token, claims -> claims.get("employeeId", Long.class));
-        String role = extractClaims(token, claims -> claims.get("role", String.class));
+        String username = extractUserName(token);
+        Long employeeId = extractEmployeeId(token);
+        String role = extractRole(token);
 
         return new TokenDataDTO(username, employeeId, role);
     }
@@ -88,5 +88,19 @@ public class JwtService {
                 .getPayload();
 
         return resolver.apply(claims);
+    }
+
+    // METODOS ESPECIFICOS PARA EXTRAER DATOS
+
+    public String extractUserName(String token) {
+        return extractClaims(token, Claims::getSubject);
+    }
+
+    public Long extractEmployeeId(String token) {
+        return extractClaims(token, claims -> claims.get("employeeId", Long.class));
+    }
+
+    public String extractRole(String token) {
+        return extractClaims(token, claims -> claims.get("role", String.class));
     }
 }

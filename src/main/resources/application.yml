@@ -36,7 +36,7 @@ spring:
       org.springframework: INFO
       com.myapp: DEBUG
 
-  jwt:
-    secret: chamoMarketSecretKey2024XyZ123456789AbCdEfGhIjKlMnOpQrStUvWxYz
-    expiration: 240000
+jwt:
+  secret: chamoMarketSecretKey2024XyZ123456789AbCdEfGhIjKlMnOpQrStUvWxYz
+  expiration-ms: 240000
 
