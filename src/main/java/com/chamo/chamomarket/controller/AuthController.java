@@ -1,9 +1,13 @@
 package com.chamo.chamomarket.controller;
 
+import com.chamo.chamomarket.dto.auth.AuthRequestDTO;
+import com.chamo.chamomarket.dto.auth.AuthResponseDTO;
 import com.chamo.chamomarket.dto.auth.GenerateTokenRequestDTO;
 import com.chamo.chamomarket.dto.auth.TokenDataDTO;
 import com.chamo.chamomarket.dto.auth.TokenResponseDTO;
+import com.chamo.chamomarket.service.AuthService;
 import com.chamo.chamomarket.service.JwtService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,12 @@ import java.util.Map;
 public class AuthController {
 
     private final JwtService jwtService;
+    private final AuthService authService;
+
+    @PostMapping("/login")
+    public AuthResponseDTO login(@RequestBody @Valid AuthRequestDTO request) {
+        return authService.login(request);
+    }
 
     @PostMapping("/generate")
     public TokenResponseDTO generate(@RequestBody GenerateTokenRequestDTO request) {

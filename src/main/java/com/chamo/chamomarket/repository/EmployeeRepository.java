@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
@@ -16,4 +17,6 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
     List<EmployeeEntity> findByRole(EmployeeRole role);
 
     List<EmployeeEntity> findByHireDateBetween(LocalDate start, LocalDate end);
+
+    Optional<EmployeeEntity> findByUsername(String username);
 }
