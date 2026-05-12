@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,21 +16,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String secretKey;
 
     @Value("${jwt.expiration-ms}")
     private long expirationMs;
 
-    private SecretKey secretKey;
-
-    @PostConstruct
-    public void init() {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    private SecretKey getSigninKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     // aqui generamos token con id, role, username jeje
@@ -42,19 +42,19 @@ public class JwtService {
         Date expiration = new Date(now.getTime() + expirationMs);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiration)
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .claims(claims)
+                .subject(username)
+                .issuedAt(now)
+                .expiration(expiration)
+                .signWith(getSigninKey())
                 .compact();
     }
 
     // here we validate the token
     public boolean isTokenValid(String token) {
         try {
-            Claims claims = extractAllClaims(token);
-            return claims.getExpiration().after(new Date());
+            Jwts.parser().verifyWith(getSigninKey()).build().parseSignedClaims(token);
+            return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
@@ -62,11 +62,10 @@ public class JwtService {
 
     // extract data
     public TokenDataDTO extractTokenData(String token) {
-        Claims claims = extractAllClaims(token);
 
-        String username = claims.getSubject();
-        Long employeeId = claims.get("employeeId", Long.class);
-        String role = claims.get("role", String.class);
+        String username = extractUserName(token);
+        Long employeeId = extractEmployeeId(token);
+        String role = extractRole(token);
 
         return new TokenDataDTO(username, employeeId, role);
     }
@@ -81,11 +80,27 @@ public class JwtService {
         return generateToken(data.getEmployeeId(), data.getRole(), data.getUsername());
     }
 
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
+    public <T> T extractClaims(String token, Function<Claims, T> resolver) {
+        final Claims claims = Jwts.parser()
+                .verifyWith(getSigninKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
+
+        return resolver.apply(claims);
+    }
+
+    // METODOS ESPECIFICOS PARA EXTRAER DATOS
+
+    public String extractUserName(String token) {
+        return extractClaims(token, Claims::getSubject);
+    }
+
+    public Long extractEmployeeId(String token) {
+        return extractClaims(token, claims -> claims.get("employeeId", Long.class));
+    }
+
+    public String extractRole(String token) {
+        return extractClaims(token, claims -> claims.get("role", String.class));
     }
 }
