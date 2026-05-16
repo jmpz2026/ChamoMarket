@@ -24,24 +24,44 @@ public class ProductController {
 
     private final ProductService productService;
 
+    /**
+     * Metodo para obtener producto por ID
+     * @param id
+     * @return DTO, con informacion del producto
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> getProductById(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Metodo para crear producto
+     * @param productRequestDTO
+     * @return DTO, con mensaje de que el producto fue creado.
+     */
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponseDTO>> createProduct(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         ApiResponse<ProductResponseDTO> response = productService.createProduct(productRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    /**
+     * Metodo para actualizar producto
+     * @param productUpdateRequestDTO
+     * @return DTO, con mensaje de que el producto fue actualizado.
+     */
     @PutMapping
     public ResponseEntity<ApiResponse<ProductResponseDTO>> updateProduct(@RequestBody @Valid ProductUpdateRequestDTO productUpdateRequestDTO) {
         ApiResponse<ProductResponseDTO> response = productService.updateProduct(productUpdateRequestDTO);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Metodo para eliminar producto
+     * @param id
+     * @return Mensaje de que el producto se elimino.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteProduct(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<?> response = productService.deleteProduct(id);
@@ -50,12 +70,24 @@ public class ProductController {
 
     // Añadir y Remover Stock
 
+    /**
+     * Metodo para añadir stock a un producto
+     * @param productStockRequestDTO
+     * @param id
+     * @return DTO, con mensaje de producto añadido exitosamente
+     */
     @PutMapping("/{id}/add-stock")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> addStock(@RequestBody @Valid ProductStockRequestDTO productStockRequestDTO, @PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.addStock(productStockRequestDTO, id);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Metodo para remover a un stock
+     * @param productStockRequestDTO
+     * @param id
+     * @return DTO, con mensaje de producto añadido exitosamente
+     */
     @PutMapping("/{id}/remove-stock")
     public ResponseEntity<ApiResponse<ProductResponseDTO>> removeStock(@RequestBody @Valid ProductStockRequestDTO productStockRequestDTO, @PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<ProductResponseDTO> response = productService.removeStock(productStockRequestDTO, id);

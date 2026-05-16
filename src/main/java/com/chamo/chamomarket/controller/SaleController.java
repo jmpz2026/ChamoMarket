@@ -17,6 +17,11 @@ public class SaleController {
 
     private final SaleService saleService;
 
+    /**
+     * Metodo para crear una factura
+     * @param request
+     * @return DTO, con informacion de la factura
+     */
     @PostMapping
     public ResponseEntity<ApiResponse<SaleResponseDTO>> create(@RequestBody @Valid SaleRequestDTO request) {
         return ResponseEntity
