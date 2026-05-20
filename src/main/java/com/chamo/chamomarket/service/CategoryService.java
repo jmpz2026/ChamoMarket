@@ -12,7 +12,7 @@ import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.mapper.CategoryMapper;
 import com.chamo.chamomarket.mapper.ProductMapper;
 import com.chamo.chamomarket.repository.CategoryRepository;
-import com.chamo.chamomarket.repository.MessageRepository;
+import com.chamo.chamomarket.constants.MessageConstants;
 import com.chamo.chamomarket.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,14 +43,14 @@ public class CategoryService {
         ApiResponse<List<CategoryResponseDTO>> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(categoryResponseDTOS);
-        response.setMessage(MessageRepository.CATEGORY_ALL_FOUND);
+        response.setMessage(MessageConstants.CATEGORY_ALL_FOUND);
 
         return response;
     }
 
     public ApiResponse<CategoryResponseDTO> getCategoryById(Long id){
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.CATEGORY_NOT_FOUND)
         );
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);
@@ -62,7 +62,7 @@ public class CategoryService {
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(categoryResponseDTO);
-        response.setMessage(MessageRepository.CATEGORY_FOUND);
+        response.setMessage(MessageConstants.CATEGORY_FOUND);
 
         return response;
     }
@@ -79,18 +79,18 @@ public class CategoryService {
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(categoryResponseDTO);
-        response.setMessage(MessageRepository.CATEGORY_CREATED);
+        response.setMessage(MessageConstants.CATEGORY_CREATED);
 
         return response;
     }
 
     public ApiResponse<CategoryResponseDTO> updateCategory(CategoryUpdateRequestDTO categoryUpdateRequestDTO){
         CategoryEntity categoryEntity = categoryRepository.findById(categoryUpdateRequestDTO.getId()).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.CATEGORY_NOT_FOUND)
         );
 
         if (categoryUpdateRequestDTO.getStatus() == categoryEntity.getStatus()){
-            throw new ResourceConflictException(MessageRepository.CATEGORY_CONFLICT_STATUS);
+            throw new ResourceConflictException(MessageConstants.CATEGORY_CONFLICT_STATUS);
         }
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(categoryUpdateRequestDTO.getId());
@@ -105,14 +105,14 @@ public class CategoryService {
         ApiResponse<CategoryResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(categoryResponseDTO);
-        response.setMessage(MessageRepository.CATEGORY_UPDATED);
+        response.setMessage(MessageConstants.CATEGORY_UPDATED);
 
         return response;
     }
 
     public void deleteCategory(Long id){
         CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.CATEGORY_NOT_FOUND)
         );
 
         List<ProductEntity> productsEntity = productRepository.findByCategoryId(id);

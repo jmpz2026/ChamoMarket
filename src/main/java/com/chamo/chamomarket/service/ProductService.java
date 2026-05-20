@@ -12,7 +12,7 @@ import com.chamo.chamomarket.exception.ResourceNoContentException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.mapper.ProductMapper;
 import com.chamo.chamomarket.repository.CategoryRepository;
-import com.chamo.chamomarket.repository.MessageRepository;
+import com.chamo.chamomarket.constants.MessageConstants;
 import com.chamo.chamomarket.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ProductService {
 
     public ApiResponse<ProductResponseDTO> getProductById(Long id){
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND)
         );
 
         ProductResponseDTO productResponseDTO = ProductMapper.convertProductEntityToProductResponseDTO(productEntity);
@@ -37,18 +37,18 @@ public class ProductService {
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(productResponseDTO);
-        response.setMessage(MessageRepository.PRODUCT_FOUND);
+        response.setMessage(MessageConstants.PRODUCT_FOUND);
 
         return response;
     }
 
     public ApiResponse<ProductResponseDTO> createProduct(ProductRequestDTO productRequestDTO) {
         CategoryEntity categoryEntity = categoryRepository.findById(productRequestDTO.getCategoryId()).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.CATEGORY_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.CATEGORY_NOT_FOUND)
         );
 
         if (categoryEntity.getStatus() == false){
-            throw new ResourceNoContentException(MessageRepository.CATEGORY_NOT_AVAILABLE);
+            throw new ResourceNoContentException(MessageConstants.CATEGORY_NOT_AVAILABLE);
         }
 
         String code = UUID.randomUUID().toString();
@@ -67,14 +67,14 @@ public class ProductService {
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(productResponseDTO);
-        response.setMessage(MessageRepository.PRODUCT_CREATED);
+        response.setMessage(MessageConstants.PRODUCT_CREATED);
 
         return response;
     }
 
     public ApiResponse<ProductResponseDTO> updateProduct(ProductUpdateRequestDTO productUpdateRequestDTO) {
         ProductEntity productEntity = productRepository.findById(productUpdateRequestDTO.getId()).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND)
         );
 
         productEntity.setName(productUpdateRequestDTO.getName());
@@ -89,18 +89,18 @@ public class ProductService {
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(productResponseDTO);
-        response.setMessage(MessageRepository.PRODUCT_UPDATED);
+        response.setMessage(MessageConstants.PRODUCT_UPDATED);
 
         return response;
     }
 
     public ApiResponse<?> deleteProduct(Long id){
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND)
         );
 
         if (productEntity.getStatus() == false){
-            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+            throw new ResourceNoContentException(MessageConstants.PRODUCT_NOT_AVAILABLE);
         }
 
         productEntity.setStatus(false);
@@ -109,7 +109,7 @@ public class ProductService {
         ApiResponse<?> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(null);
-        response.setMessage(MessageRepository.PRODUCT_DISABLED);
+        response.setMessage(MessageConstants.PRODUCT_DISABLED);
 
         return response;
     }
@@ -117,11 +117,11 @@ public class ProductService {
     // Añadir y remover Stock
     public ApiResponse<ProductResponseDTO> addStock(ProductStockRequestDTO productStockRequestDTO, Long id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND)
         );
 
         if (productEntity.getStatus() == false){
-            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+            throw new ResourceNoContentException(MessageConstants.PRODUCT_NOT_AVAILABLE);
         }
 
         productEntity.setQuantity(productEntity.getQuantity() + productStockRequestDTO.getQuantity());
@@ -130,22 +130,22 @@ public class ProductService {
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(ProductMapper.convertProductEntityToProductResponseDTO(productEntity));
-        response.setMessage(MessageRepository.PRODUCT_ADDED);
+        response.setMessage(MessageConstants.PRODUCT_ADDED);
 
         return response;
     }
 
     public ApiResponse<ProductResponseDTO> removeStock(ProductStockRequestDTO productStockRequestDTO, Long id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND)
+                () -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND)
         );
 
         if (productEntity.getStatus() == false){
-            throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+            throw new ResourceNoContentException(MessageConstants.PRODUCT_NOT_AVAILABLE);
         }
 
         if (productEntity.getQuantity() < productStockRequestDTO.getQuantity() || (productEntity.getQuantity() - productStockRequestDTO.getQuantity() <= 0)){
-            throw new ResourceBadRequestException(MessageRepository.PRODUCT_NOT_ENOUGH);
+            throw new ResourceBadRequestException(MessageConstants.PRODUCT_NOT_ENOUGH);
         }
 
         productEntity.setQuantity(productEntity.getQuantity() - productStockRequestDTO.getQuantity());
@@ -154,7 +154,7 @@ public class ProductService {
         ApiResponse<ProductResponseDTO> response = new ApiResponse<>();
         response.setSuccess(true);
         response.setData(ProductMapper.convertProductEntityToProductResponseDTO(productEntity));
-        response.setMessage(MessageRepository.PRODUCT_REMOVED);
+        response.setMessage(MessageConstants.PRODUCT_REMOVED);
 
         return response;
     }

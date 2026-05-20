@@ -1,7 +1,7 @@
-package com.chamo.chamomarket.repository;
+package com.chamo.chamomarket.constants;
 
 
-public class MessageRepository {
+public class MessageConstants {
     // Productos
     public static String PRODUCT_NOT_FOUND = "NO SE ENCONTRO EL PRODUCTO";
     public static String PRODUCT_FOUND = "EL PRODUCTO SE ENCONTRO";
