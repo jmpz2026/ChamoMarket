@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class GenerateTokenRequestDTO {
     private Long employeeId;
-    private String role;
+    private Long role;
     private String username;
 }
