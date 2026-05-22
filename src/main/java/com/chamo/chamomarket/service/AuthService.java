@@ -4,8 +4,8 @@ import com.chamo.chamomarket.dto.auth.AuthRequestDTO;
 import com.chamo.chamomarket.dto.auth.AuthResponseDTO;
 import com.chamo.chamomarket.dto.auth.RegisterRequestDTO;
 
-import com.chamo.chamomarket.entity.employee.EmployeeRole;
 import com.chamo.chamomarket.entity.employee.EmployeeEntity;
+import com.chamo.chamomarket.enums.EmployeeRole;
 import com.chamo.chamomarket.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
