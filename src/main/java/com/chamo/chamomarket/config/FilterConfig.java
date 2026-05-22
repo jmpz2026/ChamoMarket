@@ -32,28 +32,4 @@ public class FilterConfig {
         // Retornmos el registro configurado para que spring lo guarde en su contexto
         return registrationBean;
     }
-
-    /**
-     * Esto registra la las rutas que tengamos en la clase que coloquemos entre
-     * @param roleValidationFilter
-     * @return FilterRegistrationBean
-     */
-    @Bean
-    FilterRegistrationBean<RoleValidationFilter> roleFilter(RoleValidationFilter roleValidationFilter) {
-
-        // Creamos un contenedor de registro del bean para el filtro
-        FilterRegistrationBean<RoleValidationFilter> registrationBean = new FilterRegistrationBean<>();
-
-        // Es decirle a spring que este es el filtro con el que quiero que trabaje
-        registrationBean.setFilter(roleValidationFilter);
-
-        // Definir el alcance de este filtro, quiero que revise todas las peticiones que entre a mi aplicacion
-        registrationBean.addUrlPatterns("/*");
-
-        // Definimos el orden de prioridad de ejecución de este bean
-        registrationBean.setOrder(2);
-
-        // Retornmos el registro configurado para que spring lo guarde en su contexto
-        return registrationBean;
-    }
 }
