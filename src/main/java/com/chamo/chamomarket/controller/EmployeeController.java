@@ -20,6 +20,11 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    /**
+     * Metodo para guardar un usuario
+     * @param request (EmployeeRequestDTO)
+     * @return DTO, con mensaje que el empleado se guardo exitosamente
+     */
     @PostMapping
     public ResponseEntity<EmployeeResponseDTO> save(@RequestBody @Valid EmployeeRequestDTO request) {
         return ResponseEntity
@@ -27,6 +32,13 @@ public class EmployeeController {
                 .body(employeeService.createEmployee(request));
     }
 
+    /**
+     * Metodo para buscar un archivo por los siguientes parametros:
+     * @param role
+     * @param start
+     * @param end
+     * @return DTO, con la informacion dle empleado
+     */
     @GetMapping("/search")
     public ResponseEntity<List<EmployeeResponseDTO>> search(
             @RequestParam(required = false) String role,

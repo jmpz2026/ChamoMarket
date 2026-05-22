@@ -36,6 +36,16 @@
             {
               "name": "Crear Categoria",
               "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU5JU1RSQURPUiIsImVtcGxveWVlSWQiOjEsInN1YiI6IlBhYmxvIiwiaWF0IjoxNzc4NDc3Mzk0LCJleHAiOjE3Nzg0Nzc2MzR9.ijydAFQebfbOq3e4fWVDeXNRmhiI0Au-AYICFpJAXP8",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "method": "POST",
                 "header": [],
                 "body": {
@@ -188,7 +198,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"pelopelo\",\r\n    \"status\": true,\r\n    \"price\": 50,\r\n    \"quantity\": 5\r\n}",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"pelopelo\",\r\n    \"status\": true,\r\n    \"price\": 50,\r\n    \"quantity\": 2\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -266,7 +276,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"quantity\": 22\r\n}",
+                  "raw": "{\r\n    \"quantity\": 1\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -357,26 +367,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "Obtener Proveedor",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8081/proveedores/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8081",
-              "path": [
-                "proveedores",
-                "1"
-              ]
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -412,12 +402,12 @@
           "response": []
         },
         {
-          "name": "Encontrar Empleado",
+          "name": "Encontrar Empleado Rol",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8081/employee/search?Id=1",
+              "raw": "http://localhost:8081/employee/search?role=ADMINISTRADOR",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -429,8 +419,38 @@
               ],
               "query": [
                 {
-                  "key": "Id",
-                  "value": "1"
+                  "key": "role",
+                  "value": "ADMINISTRADOR"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Encontrar Empleado Fecha",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/employee/search?start=2023-01-01&end=2026-12-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "employee",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "end",
+                  "value": "2026-12-31"
                 }
               ]
             }
@@ -449,7 +469,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"employeeId\": 1,\r\n  \"items\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 2,\r\n      \"unitPrice\": 1000\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 2000\r\n    }\r\n  ]\r\n}",
+              "raw": "{\r\n  \"employeeId\": 1,\r\n  \"items\": [\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 1000\r\n    }\r\n  ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -465,6 +485,185 @@
               "port": "8081",
               "path": [
                 "sales"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "JWT",
+      "item": [
+        {
+          "name": "Auth Generate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"employeeId\": 1,\r\n    \"role\": \"ADMINISTRADOR\",\r\n    \"username\": \"Pablo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/generate",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "generate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\": \"d\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/validate",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "validate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Extraer datos Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\": \"d\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/data",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "data"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refrescar Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\": \"d\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"document\": \"12313213\",\r\n    \"name\": \"Samuel\",\r\n    \"role\": \"ADMINISTRADOR\",\r\n    \"salary\": 1000.0,\r\n    \"username\": \"SamuelGoku\",\r\n    \"password\": \"SixSeven\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"SamuelGoku\",\r\n    \"password\": \"SixSeven\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "auth",
+                "login"
               ]
             }
           },

@@ -3,12 +3,12 @@ package com.chamo.chamomarket.service;
 import com.chamo.chamomarket.dto.employee.EmployeeRequestDTO;
 import com.chamo.chamomarket.dto.employee.EmployeeResponseDTO;
 import com.chamo.chamomarket.entity.employee.EmployeeEntity;
-import com.chamo.chamomarket.entity.employee.EmployeeRole;
+import com.chamo.chamomarket.enums.EmployeeRole;
 import com.chamo.chamomarket.exception.ResourceConflictException;
 import com.chamo.chamomarket.exception.ResourceExistsException;
 import com.chamo.chamomarket.mapper.EmployeeMapper;
 import com.chamo.chamomarket.repository.EmployeeRepository;
-import com.chamo.chamomarket.repository.MessageRepository;
+import com.chamo.chamomarket.constants.MessageConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class EmployeeService {
     public EmployeeResponseDTO createEmployee(EmployeeRequestDTO request) {
 
         if (employeeRepository.existsByDocument(request.getDocument())) {
-            throw new ResourceExistsException(MessageRepository.EMPLOYEE_EXISTS);
+            throw new ResourceExistsException(MessageConstants.EMPLOYEE_EXISTS);
         }
 
         EmployeeEntity employee = new EmployeeEntity();
@@ -37,7 +37,7 @@ public class EmployeeService {
         try {
             employee.setRole(EmployeeRole.valueOf(request.getRole().toUpperCase()));
         } catch (IllegalArgumentException e) {
-            throw new ResourceConflictException(MessageRepository.EMPLOYEE_INVALID_ROLE);
+            throw new ResourceConflictException(MessageConstants.EMPLOYEE_INVALID_ROLE);
         }
 
         employee.setHireDate(request.getHireDate());

@@ -38,3 +38,5 @@ data
 /.mvn
 /.idea
 /.claude
+node_modules
+/node_modules

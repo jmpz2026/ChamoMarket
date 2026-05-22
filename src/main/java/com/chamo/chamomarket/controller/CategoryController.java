@@ -23,6 +23,9 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    /**
+     * @return Lista de todas las categorias
+     */
     @GetMapping
     public ResponseEntity<ApiResponse<List<CategoryResponseDTO>>> getAllCategories() {
         ApiResponse<List<CategoryResponseDTO>> response = categoryService.getAllCategories();
@@ -30,6 +33,9 @@ public class CategoryController {
                 .ok(response);
     }
 
+    /**
+     * @return Categoria en especifico
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> getCategoryById(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<CategoryResponseDTO> response = categoryService.getCategoryById(id);
@@ -37,6 +43,11 @@ public class CategoryController {
                 .ok(response);
     }
 
+    /**
+     * Metodo para crear una categoria segun CategoryRequestDTO
+     * @param categoryRequestDTO
+     * @return DTO, con mensaje de que categoria fue creada
+     */
     @PostMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> createCategory(@RequestBody @Valid CategoryRequestDTO categoryRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.createCategory(categoryRequestDTO);
@@ -45,12 +56,22 @@ public class CategoryController {
                 .body(response);
     }
 
+    /**
+     * Meotodo para modificar una categoria
+     * @param categoryUpdateRequestDTO
+     * @return DTO, con mensaje de que categoria fue modificada
+     */
     @PutMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> updateCategory(@RequestBody @Valid CategoryUpdateRequestDTO categoryUpdateRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.updateCategory(categoryUpdateRequestDTO);
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Meotodo para eliminar una categoria
+     * @param id
+     * @return Mensaje de que la categoria fue eliminada
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable @NotNull @Min(1) Long id) {
         categoryService.deleteCategory(id);

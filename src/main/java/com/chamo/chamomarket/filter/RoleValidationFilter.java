@@ -1,16 +1,13 @@
 package com.chamo.chamomarket.filter;
 
-import com.chamo.chamomarket.entity.employee.EmployeeRole;
-import com.chamo.chamomarket.service.JwtService;
+import com.chamo.chamomarket.enums.EmployeeRole;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 

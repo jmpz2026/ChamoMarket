@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration // Fábrica de beans
 public class FilterConfig {
 
+    /**
+     * Esto registra la las rutas que tengamos en la clase que coloquemos entre <>
+     * @param jwtValidationFilter
+     * @return FilterRegistrationBean
+     */
     @Bean
     FilterRegistrationBean<JwtValidationFilter> jwtFilter(JwtValidationFilter jwtValidationFilter) {
 
@@ -28,6 +33,11 @@ public class FilterConfig {
         return registrationBean;
     }
 
+    /**
+     * Esto registra la las rutas que tengamos en la clase que coloquemos entre
+     * @param roleValidationFilter
+     * @return FilterRegistrationBean
+     */
     @Bean
     FilterRegistrationBean<RoleValidationFilter> roleFilter(RoleValidationFilter roleValidationFilter) {
 

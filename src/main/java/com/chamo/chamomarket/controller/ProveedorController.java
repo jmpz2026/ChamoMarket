@@ -12,18 +12,36 @@ public class ProveedorController {
     @Autowired
     private ProveedorService service;
 
+    /**
+     * Metodo para crear proveedor
+     * @param proveedor
+     * @return Mensaje con proveedor creado
+     */
     @PostMapping
     public Proveedor crear(@RequestBody Proveedor proveedor) {
         return service.guardar(proveedor);
     }
 
+    /**
+     * Metodo para ingresar
+     * @param productoId
+     * @param proveedorId
+     * @param cantidad
+     * @return Mensaje entrada de stock al proveedor
+     */
     @PostMapping("/entrada")
     public String entradaStock(@RequestParam Long productoId,
                           @RequestParam Long proveedorId,
                           @RequestParam int cantidad) {
 
     return service.entradaStock(productoId, proveedorId, cantidad);
-}
+    }
+
+    /**
+     * Metodo para obtener proveedor por ID
+     * @param id
+     * @return mensaje con la informacion del proveedor
+     */
     @GetMapping("/{id}")
     public Proveedor obtenerPorId(@PathVariable Long id) {
         return service.obtenerPorId(id);

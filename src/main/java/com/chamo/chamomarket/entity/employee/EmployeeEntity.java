@@ -1,5 +1,6 @@
 package com.chamo.chamomarket.entity.employee;
 
+import com.chamo.chamomarket.enums.EmployeeRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

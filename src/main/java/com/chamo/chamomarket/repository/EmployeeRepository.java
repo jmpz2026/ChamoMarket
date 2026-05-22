@@ -1,7 +1,7 @@
 package com.chamo.chamomarket.repository;
 
 import com.chamo.chamomarket.entity.employee.EmployeeEntity;
-import com.chamo.chamomarket.entity.employee.EmployeeRole;
+import com.chamo.chamomarket.enums.EmployeeRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.chamo.chamomarket.service;
 
+import com.chamo.chamomarket.constants.SaleConstants;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.sale.SaleRequestDTO;
 import com.chamo.chamomarket.dto.sale.SaleResponseDTO;
@@ -12,7 +13,7 @@ import com.chamo.chamomarket.exception.ResourceNoContentException;
 import com.chamo.chamomarket.exception.ResourceNotFoundException;
 import com.chamo.chamomarket.mapper.SaleMapper;
 import com.chamo.chamomarket.repository.EmployeeRepository;
-import com.chamo.chamomarket.repository.MessageRepository;
+import com.chamo.chamomarket.constants.MessageConstants;
 import com.chamo.chamomarket.repository.ProductRepository;
 import com.chamo.chamomarket.repository.SaleRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,6 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class SaleService {
-
-    private static final Double IVA_RATE = Double.valueOf("0.19");
 
     private final SaleRepository saleRepository;
     private final ProductRepository productRepository;
@@ -46,14 +45,14 @@ public class SaleService {
 
         for (var item : request.getItems()) {
             ProductEntity product = productRepository.findById(item.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException(MessageRepository.PRODUCT_NOT_FOUND));
+                    .orElseThrow(() -> new ResourceNotFoundException(MessageConstants.PRODUCT_NOT_FOUND));
 
             if (Boolean.FALSE.equals(product.getStatus())) {
-                throw new ResourceNoContentException(MessageRepository.PRODUCT_NOT_AVAILABLE);
+                throw new ResourceNoContentException(MessageConstants.PRODUCT_NOT_AVAILABLE);
             }
 
             if (item.getQuantity() > product.getQuantity()) {
-                throw new ResourceBadRequestException(MessageRepository.PRODUCT_NOT_ENOUGH);
+                throw new ResourceBadRequestException(MessageConstants.PRODUCT_NOT_ENOUGH);
             }
 
             Double lineSubtotal = Double.valueOf(
@@ -78,7 +77,7 @@ public class SaleService {
             productRepository.save(product);
         }
 
-        Double iva = Double.valueOf(subtotal.doubleValue() * IVA_RATE.doubleValue());
+        Double iva = Double.valueOf(subtotal.doubleValue() * SaleConstants.IVA_RATE.doubleValue());
         Double total = Double.valueOf(subtotal.doubleValue() + iva.doubleValue());
 
         sale.setSubtotal(subtotal);
