@@ -34,11 +34,11 @@ public class JwtValidationFilter extends OncePerRequestFilter {
             if (jwtService.isTokenValid(token)) {
                 String username = jwtService.extractUserName(token);
                 Long employeeId = jwtService.extractEmployeeId(token);
-                String role = jwtService.extractRole(token);
+                Long rolId = jwtService.extractRolId(token);
 
                 request.setAttribute("username", username);
                 request.setAttribute("employeeId", employeeId);
-                request.setAttribute("role", role);
+                request.setAttribute("rolId", rolId);
 
                 // MUY IMPORTANTE
                 filterChain.doFilter(request, response);

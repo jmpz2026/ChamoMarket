@@ -1,7 +1,6 @@
 package com.chamo.chamomarket.config;
 
 import com.chamo.chamomarket.filter.JwtValidationFilter;
-import com.chamo.chamomarket.filter.RoleValidationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

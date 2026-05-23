@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "342758f4-6b78-4094-aae4-cd364cec066b",
-    "name": "ChamoMarket",
+    "name": "ChamoMarketDocker",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "52284123",
     "_collection_link": "https://go.postman.co/collection/52284123-342758f4-6b78-4094-aae4-cd364cec066b?source=collection_link"
@@ -19,12 +19,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/category/1",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/category/1",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "category",
                     "1"
@@ -41,7 +40,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU5JU1RSQURPUiIsImVtcGxveWVlSWQiOjEsInN1YiI6IlBhYmxvIiwiaWF0IjoxNzc4NDc3Mzk0LCJleHAiOjE3Nzg0Nzc2MzR9.ijydAFQebfbOq3e4fWVDeXNRmhiI0Au-AYICFpJAXP8",
+                      "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xJZCI6MSwiZW1wbG95ZWVJZCI6MSwic3ViIjoiU2FtdWVsR29rdTIiLCJpYXQiOjE3Nzk1NTQ3NTAsImV4cCI6MTc3OTU1NDk5MH0.1Q5t-AnNjbwE-8EeaEr2GV1vhcZSenUvAG0yIehnPDI",
                       "type": "string"
                     }
                   ]
@@ -58,12 +57,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/category",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/category",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "category"
                   ]
@@ -86,12 +84,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/category",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/category",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "category"
                   ]
@@ -105,12 +102,11 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/category/1",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/category/1",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "category",
                     "1"
@@ -125,12 +121,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/category",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/category",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "category"
                   ]
@@ -149,12 +144,11 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/product/1",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product/1",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product",
                     "1"
@@ -178,12 +172,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product"
                   ]
@@ -206,12 +199,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product"
                   ]
@@ -225,12 +217,11 @@
                 "method": "DELETE",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8081/product/1",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product/1",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product",
                     "1"
@@ -254,12 +245,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product/1/add-stock",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product/1/add-stock",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product",
                     "1",
@@ -284,12 +274,11 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8081/product/1/remove-stock",
-                  "protocol": "http",
+                  "raw": "https://chamomarket.onrender.com/product/1/remove-stock",
+                  "protocol": "https",
                   "host": [
-                    "localhost"
+                    "chamomarket.onrender.com"
                   ],
-                  "port": "8081",
                   "path": [
                     "product",
                     "1",
@@ -321,12 +310,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/proveedores",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/proveedores",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "proveedores"
               ]
@@ -340,12 +328,11 @@
             "method": "POST",
             "header": [],
             "url": {
-              "raw": "http://localhost:8081/proveedores/entrada?productoId=1&proveedorId=1&cantidad=10",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/proveedores/entrada?productoId=1&proveedorId=1&cantidad=10",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "proveedores",
                 "entrada"
@@ -388,12 +375,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/employee",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/employee",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "employee"
               ]
@@ -407,12 +393,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8081/employee/search?role=ADMINISTRADOR",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/employee/search?role=ADMINISTRADOR",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "employee",
                 "search"
@@ -433,12 +418,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8081/employee/search?start=2023-01-01&end=2026-12-31",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/employee/search?start=2023-01-01&end=2026-12-31",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "employee",
                 "search"
@@ -477,12 +461,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/sales",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/sales",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "sales"
               ]
@@ -502,7 +485,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"employeeId\": 1,\r\n    \"role\": \"ADMINISTRADOR\",\r\n    \"username\": \"Pablo\"\r\n}",
+              "raw": "{\r\n    \"employeeId\": 1,\r\n    \"role\": 1,\r\n    \"username\": \"Pablo\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -510,12 +493,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/generate",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/generate",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "generate"
@@ -539,12 +521,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/validate",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/validate",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "validate"
@@ -568,12 +549,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/data",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/data",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "data"
@@ -597,12 +577,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/refresh",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/refresh",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "refresh"
@@ -626,12 +605,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/register",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/register",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "register"
@@ -655,12 +633,11 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8081/auth/login",
-              "protocol": "http",
+              "raw": "https://chamomarket.onrender.com/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "chamomarket.onrender.com"
               ],
-              "port": "8081",
               "path": [
                 "auth",
                 "login"
