@@ -3,6 +3,8 @@ package com.chamo.chamomarket.controller;
 import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.sale.SaleRequestDTO;
 import com.chamo.chamomarket.dto.sale.SaleResponseDTO;
+import com.chamo.chamomarket.enums.EmployeeRole;
+import com.chamo.chamomarket.security.RequiresRole;
 import com.chamo.chamomarket.service.SaleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +19,7 @@ public class SaleController {
 
     private final SaleService saleService;
 
-    /**
-     * Metodo para crear una factura
-     * @param request
-     * @return DTO, con informacion de la factura
-     */
+    @RequiresRole({EmployeeRole.ADMINISTRADOR, EmployeeRole.CAJERO})
     @PostMapping
     public ResponseEntity<ApiResponse<SaleResponseDTO>> create(@RequestBody @Valid SaleRequestDTO request) {
         return ResponseEntity
