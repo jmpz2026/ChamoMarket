@@ -1,5 +1,6 @@
 package com.chamo.chamomarket.entity.employee;
 
+import com.chamo.chamomarket.enums.EmployeeRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,10 @@ public class EmployeeEntity {
 
     @Column(nullable = false)
     private Double salary;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 }

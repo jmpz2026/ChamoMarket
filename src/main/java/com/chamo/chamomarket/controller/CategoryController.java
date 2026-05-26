@@ -4,6 +4,8 @@ import com.chamo.chamomarket.dto.ApiResponse;
 import com.chamo.chamomarket.dto.category.CategoryRequestDTO;
 import com.chamo.chamomarket.dto.category.CategoryResponseDTO;
 import com.chamo.chamomarket.dto.category.CategoryUpdateRequestDTO;
+import com.chamo.chamomarket.enums.EmployeeRole;
+import com.chamo.chamomarket.security.RequiresRole;
 import com.chamo.chamomarket.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -23,39 +25,38 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @RequiresRole({EmployeeRole.ADMINISTRADOR})
     @GetMapping
     public ResponseEntity<ApiResponse<List<CategoryResponseDTO>>> getAllCategories() {
         ApiResponse<List<CategoryResponseDTO>> response = categoryService.getAllCategories();
-        return ResponseEntity
-                .ok(response);
+        return ResponseEntity.ok(response);
     }
 
+    @RequiresRole({EmployeeRole.ADMINISTRADOR})
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> getCategoryById(@PathVariable @NotNull @Min(1) Long id) {
         ApiResponse<CategoryResponseDTO> response = categoryService.getCategoryById(id);
-        return ResponseEntity
-                .ok(response);
+        return ResponseEntity.ok(response);
     }
 
+    @RequiresRole({EmployeeRole.ADMINISTRADOR})
     @PostMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> createCategory(@RequestBody @Valid CategoryRequestDTO categoryRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.createCategory(categoryRequestDTO);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @RequiresRole({EmployeeRole.ADMINISTRADOR})
     @PutMapping
     public ResponseEntity<ApiResponse<CategoryResponseDTO>> updateCategory(@RequestBody @Valid CategoryUpdateRequestDTO categoryUpdateRequestDTO) {
         ApiResponse<CategoryResponseDTO> response = categoryService.updateCategory(categoryUpdateRequestDTO);
         return ResponseEntity.ok(response);
     }
 
+    @RequiresRole({EmployeeRole.ADMINISTRADOR})
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable @NotNull @Min(1) Long id) {
         categoryService.deleteCategory(id);
-        return ResponseEntity
-                .noContent()
-                .build();
+        return ResponseEntity.noContent().build();
     }
 }
