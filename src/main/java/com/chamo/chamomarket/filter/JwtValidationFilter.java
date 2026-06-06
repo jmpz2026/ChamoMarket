@@ -57,6 +57,16 @@ public class JwtValidationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return PublicRoutes.PUBLIC_ROUTES.stream().anyMatch(path::startsWith);
+
+
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) return true;
+
+        if (PublicRoutes.PUBLIC_ROUTES.stream().anyMatch(path::startsWith)) return true;
+        // Allow static frontend files served from /static
+        return path.equals("/") || path.equals("/index.html")
+            || path.startsWith("/css/") || path.startsWith("/js/")
+            || path.endsWith(".html") || path.endsWith(".css")
+            || path.endsWith(".js")   || path.endsWith(".ico")
+            || path.endsWith(".png")  || path.endsWith(".svg");
     }
 }

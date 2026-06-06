@@ -38,3 +38,6 @@ logging:
 jwt:
   secret: chamoMarketSecretKey2024XyZ123456789AbCdEfGhIjKlMnOpQrStUvWxYz
   expiration-ms: 240000
+
+frontend:
+  url: "http://localhost:63342"
