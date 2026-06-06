@@ -1,4 +1,4 @@
 # Cambiamos todo para poder desplegarlo mas facilmente.
 spring:
   profiles:
-    active: dev
+    active: prod
